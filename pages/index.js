@@ -1,18 +1,21 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'reactstrap';
 import { Navbar, NavbarBrand } from 'reactstrap';
-import { Form, FormGroup, Input } from 'reactstrap';
+import { Form, FormGroup } from 'reactstrap';
+import Select from 'react-select';
+import throttle from 'lodash/throttle';
 
 import getPhotos from '../src/functions/instagram/getPhotos';
+import getUsers from '../src/functions/instagram/getUsers';
 
-const fn = () => {
-  const [query, setQuery] = useState('110379');
+const Comp = () => {
+  const [query, setQuery] = useState();
   const [photos, setPhotos] = useState([]);
-  useEffect(() => {
-    getPhotos({ id: query }).then(setPhotos);
-  });
+  const [options, setOptions] = useState([]);
+  const onInputChange = createOnInputChange({ setOptions });
+  const onOptionChange = createOnOptionChange({ setQuery, setPhotos });
   return (
     <>
       <Navbar color="light" light expand="md">
@@ -26,14 +29,11 @@ const fn = () => {
             <div className="search-form">
               <Form>
                 <FormGroup>
-                  <Input
-                    type="text"
-                    name="search"
-                    id="search"
-                    placeholder="Search with username"
-                    autoFocus
+                  <Select
+                    options={options}
                     value={query}
-                    onChange={(e) => setQuery(e.target.value)}
+                    onChange={onOptionChange}
+                    onInputChange={onInputChange}
                   />
                 </FormGroup>
               </Form>
@@ -90,4 +90,20 @@ const fn = () => {
   );
 };
 
-export default fn;
+function createOnInputChange({ setOptions }) {
+  let loading = Promise.resolve();
+  const fn = (query) => {
+    loading = loading.then(() => getUsers({ query })).then(setOptions);
+  };
+  return throttle(fn, 2000);
+}
+
+function createOnOptionChange({ setQuery, setPhotos }) {
+  return (option) => {
+    const { value: id } = option;
+    setQuery(option);
+    getPhotos({ id }).then(setPhotos);
+  };
+}
+
+export default Comp;
