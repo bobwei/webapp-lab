@@ -30,6 +30,7 @@ const Comp = () => {
               <Form>
                 <FormGroup>
                   <Select
+                    autoFocus
                     options={options}
                     value={query}
                     onChange={onOptionChange}
@@ -93,7 +94,9 @@ const Comp = () => {
 function createOnInputChange({ setOptions }) {
   let loading = Promise.resolve();
   const fn = (query) => {
-    loading = loading.then(() => getUsers({ query })).then(setOptions);
+    if (query) {
+      loading = loading.then(() => getUsers({ query })).then(setOptions);
+    }
   };
   return throttle(fn, 2000);
 }
