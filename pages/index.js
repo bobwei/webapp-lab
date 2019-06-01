@@ -1,11 +1,18 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'reactstrap';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import { Form, FormGroup, Input } from 'reactstrap';
 
-const fn = ({ photos }) => {
+import getPhotos from '../src/functions/instagram/getPhotos';
+
+const fn = () => {
+  const [query, setQuery] = useState('110379');
+  const [photos, setPhotos] = useState([]);
+  useEffect(() => {
+    getPhotos({ id: query }).then(setPhotos);
+  });
   return (
     <>
       <Navbar color="light" light expand="md">
@@ -25,6 +32,8 @@ const fn = ({ photos }) => {
                     id="search"
                     placeholder="Search with username"
                     autoFocus
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
                   />
                 </FormGroup>
               </Form>
@@ -79,10 +88,6 @@ const fn = ({ photos }) => {
       </Container>
     </>
   );
-};
-
-fn.defaultProps = {
-  photos: require('../src/fixtures/photos.json'),
 };
 
 export default fn;
