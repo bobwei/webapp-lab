@@ -4,6 +4,16 @@
     {
       "src": "next.config.js",
       "use": "@now/next"
+    },
+    {
+      "src": "src/server/proxy.js",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/proxy/(.*)",
+      "dest": "/src/server/proxy.js"
     }
   ]
 }
