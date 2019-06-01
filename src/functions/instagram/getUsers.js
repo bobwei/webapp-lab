@@ -9,10 +9,16 @@ const fn = ({ query } = {}) => {
     .then(R.pipe(R.path(['users']), R.map(R.prop('user'))))
     .then(
       R.map(
-        R.applySpec({
-          value: R.prop('pk'),
-          label: R.prop('username')
-        }),
+        R.converge(
+          R.merge,
+          [
+            R.identity,
+            R.applySpec({
+              value: R.prop('pk'),
+              label: R.prop('username'),
+            }),
+          ]
+        )
       )
     )
 };
