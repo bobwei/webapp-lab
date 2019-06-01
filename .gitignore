@@ -5,6 +5,7 @@ lib/
 logs/
 ignored-scripts/
 tmp/
+.tmp/
 dist/
 .next/
 out/
