@@ -11,9 +11,9 @@ import getPhotos from '../src/functions/instagram/getPhotos';
 import getUsers from '../src/functions/instagram/getUsers';
 
 const Comp = () => {
-  const [query, setQuery] = useState();
   const [photos, setPhotos] = useState([]);
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState(require('../src/fixtures/users.json'));
+  const [query, setQuery] = useState(options.length ? options[0] : null);
   const onInputChange = createOnInputChange({ setOptions });
   const onOptionChange = createOnOptionChange({ setQuery, setPhotos });
   return (
