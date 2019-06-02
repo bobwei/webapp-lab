@@ -9,7 +9,7 @@ import throttle from 'lodash/throttle';
 
 import getPhotos from '../src/functions/instagram/getPhotos';
 import getUsers from '../src/functions/instagram/getUsers';
-import GridView from '../src/components/GridView';
+import CarouselView from '../src/components/CarouselView';
 import './index.css';
 
 const Comp = () => {
@@ -45,7 +45,7 @@ const Comp = () => {
         </Row>
         <Row>
           <Col md={{ size: 6, offset: 3 }}>
-            <GridView photos={photos} />
+            <CarouselView photos={photos} />
           </Col>
         </Row>
       </Container>
