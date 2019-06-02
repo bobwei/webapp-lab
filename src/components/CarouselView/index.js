@@ -5,35 +5,44 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const Comp = ({ photos }) => {
+  const settings = {
+    centerMode: true,
+    centerPadding: '12%',
+    infinite: false,
+    speed: 300,
+  };
   return (
     <>
-      <Slider>
+      <Slider {...settings}>
         {photos.map(({ src }) => (
           <div key={src}>
-            <div className="photo" style={{ backgroundImage: `url(${src})` }} />
+            <div className="block">
+              <div
+                className="photo"
+                style={{ backgroundImage: `url(${src})` }}
+              />
+            </div>
           </div>
         ))}
       </Slider>
       <style jsx>
         {`
-          .photos-container {
-            margin: 0 auto;
-          }
-
-          @media (min-width: 768px) {
-            .photos-container {
-              margin: 50px 0;
-            }
+          .block {
+            width: 85%;
+            margin: 10px auto;
+            box-shadow: rgba(0, 0, 0, 0.22) 0 0 12px;
+            border-radius: 10px;
+            overflow: hidden;
           }
 
           .photo {
             display: inline-block;
-            width: 33.33%;
-            padding-bottom: 33.33%;
+            width: 100%;
+            margin-bottom: -6px;
+            padding-bottom: 100%;
             background-repeat: no-repeat;
             background-size: cover;
             background-position: 50%;
-            margin-bottom: -6px;
           }
         `}
       </style>

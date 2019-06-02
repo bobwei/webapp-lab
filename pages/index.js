@@ -52,11 +52,9 @@ const Comp = () => {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col md={{ size: 6, offset: 3 }}>
-            {photos && <CarouselView photos={photos} />}
-          </Col>
-        </Row>
+        <div className="content">
+          {photos && <CarouselView photos={photos} />}
+        </div>
       </Container>
     </>
   );
