@@ -14,14 +14,14 @@ import CarouselView from '../src/components/CarouselView';
 import './index.css';
 
 const Comp = () => {
-  const [photos, setPhotos] = useState(null);
+  const [photoGroups, setPhotoGroups] = useState(null);
   const [options, setOptions] = useState(null);
   const [query, setQuery] = useState(null);
   const onInputChange = createOnInputChange({ setOptions });
-  const onOptionChange = createOnOptionChange({ setQuery, setPhotos });
+  const onOptionChange = createOnOptionChange({ setQuery, setPhotoGroups });
   useEffect(() => {
     const defaultOptions = require('../src/fixtures/users.json');
-    if (!options && !photos) {
+    if (!options && !photoGroups) {
       setOptions(defaultOptions);
       onOptionChange(defaultOptions[0]);
     }
@@ -57,7 +57,11 @@ const Comp = () => {
         <Row>
           <Col md={{ size: 6, offset: 3 }}>
             <div className="content">
-              {photos && <CarouselView photos={photos} />}
+              {photoGroups &&
+                photoGroups.map((photoGroup) => {
+                  const { user, photos } = photoGroup;
+                  return <CarouselView key={user.value} photos={photos} />;
+                })}
             </div>
           </Col>
         </Row>
@@ -76,11 +80,16 @@ function createOnInputChange({ setOptions }) {
   return throttle(fn, 2000);
 }
 
-function createOnOptionChange({ setQuery, setPhotos }) {
+function createOnOptionChange({ setQuery, setPhotoGroups }) {
   return (option) => {
     const { value: id } = option;
     setQuery(option);
-    getPhotos({ id }).then(setPhotos);
+    // prettier-ignore
+    getPhotos({ id })
+      .then((photos) => {
+        const photoGroups = [{ user: option, photos }];
+        setPhotoGroups(photoGroups);
+      });
   };
 }
 
