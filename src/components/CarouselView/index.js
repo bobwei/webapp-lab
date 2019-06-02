@@ -22,22 +22,22 @@ const Comp = ({ photos }) => {
     <>
       <div className="swiper-container" ref={swiperRef}>
         <div className="swiper-wrapper">
-          {photos.map(({ src, location }) => (
-            <div key={src} className="block swiper-slide">
-              <div
-                className="photo"
-                style={{ backgroundImage: `url(${src})` }}
-              />
-              {location && (
-                <div className="overlay">
-                  <div className="location">
-                    <i className="fas fa-map-marker-alt" />
-                    {location.name}
+          {photos.map((photo) => {
+            const { src, location } = photo;
+            return (
+              <div key={src} className="block swiper-slide" onClick={createOnClick({ photo })}>
+                <div className="photo" style={{ backgroundImage: `url(${src})` }} />
+                {location && (
+                  <div className="overlay">
+                    <div className="location">
+                      <i className="fas fa-map-marker-alt" />
+                      {location.name}
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
       <style jsx>
@@ -82,5 +82,18 @@ const Comp = ({ photos }) => {
     </>
   );
 };
+
+function createOnClick({ photo }) {
+  const { location, url } = photo;
+  return (e) => {
+    const $photo = e.currentTarget.querySelector('.photo');
+    const isOverlayClicked = !e.target.contains($photo);
+    if (isOverlayClicked && location) {
+      window.open(`https://www.google.com/maps?q=${location.name}`, '_blank');
+      return;
+    }
+    window.open(url, '_blank');
+  };
+}
 
 export default Comp;
