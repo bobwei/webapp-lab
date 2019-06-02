@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 import { Container, Row, Col } from 'reactstrap';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import { Form, FormGroup, Label } from 'reactstrap';

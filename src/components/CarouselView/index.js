@@ -22,12 +22,20 @@ const Comp = ({ photos }) => {
     <>
       <div className="swiper-container" ref={swiperRef}>
         <div className="swiper-wrapper">
-          {photos.map(({ src }) => (
+          {photos.map(({ src, location }) => (
             <div key={src} className="block swiper-slide">
               <div
                 className="photo"
                 style={{ backgroundImage: `url(${src})` }}
               />
+              {location && (
+                <div className="overlay">
+                  <div className="location">
+                    <i className="fas fa-map-marker-alt" />
+                    {location.name}
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -39,6 +47,7 @@ const Comp = ({ photos }) => {
             margin: 10px 10px;
             border-radius: 3px;
             overflow: hidden;
+            position: relative;
           }
 
           .photo {
@@ -49,6 +58,24 @@ const Comp = ({ photos }) => {
             background-repeat: no-repeat;
             background-size: cover;
             background-position: 50%;
+          }
+
+          .overlay {
+            color: white;
+            height: 100px;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+          }
+
+          .location > i {
+            margin-right: 8px;
           }
         `}
       </style>
