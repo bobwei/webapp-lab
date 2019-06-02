@@ -1,35 +1,38 @@
-import React from 'react';
-import Slider from 'react-slick';
+import React, { useEffect } from 'react';
+import Swiper from 'swiper';
 
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import 'swiper/dist/css/swiper.min.css';
 
 const Comp = ({ photos }) => {
-  const settings = {
-    centerMode: true,
-    centerPadding: '5%',
-    infinite: false,
-    speed: 300,
-  };
+  const swiperRef = React.createRef();
+  let swiper;
+  useEffect(() => {
+    if (!swiper && swiperRef.current) {
+      swiper = new Swiper(swiperRef.current, {
+        centeredSlides: true,
+        slidesPerView: 'auto',
+      });
+    }
+  });
   return (
     <>
-      <Slider {...settings}>
-        {photos.map(({ src }) => (
-          <div key={src}>
-            <div className="block">
+      <div className="swiper-container" ref={swiperRef}>
+        <div className="swiper-wrapper">
+          {photos.map(({ src }) => (
+            <div key={src} className="block swiper-slide">
               <div
                 className="photo"
                 style={{ backgroundImage: `url(${src})` }}
               />
             </div>
-          </div>
-        ))}
-      </Slider>
+          ))}
+        </div>
+      </div>
       <style jsx>
         {`
           .block {
-            width: 95%;
-            margin: 10px auto;
+            width: 80%;
+            margin: 10px 10px;
             border-radius: 3px;
             overflow: hidden;
           }
