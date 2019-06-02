@@ -63,7 +63,7 @@ const Comp = () => {
                   const { user, photos } = photoGroup;
                   return (
                     <div key={user.value} className="photo-group">
-                      <a href={`https://instagram.com/${user.label}`} target="_blank">
+                      <a href={`https://instagram.com/${user.username}`} target="_blank">
                         <UserItem {...user} />
                       </a>
                       <div className="content">

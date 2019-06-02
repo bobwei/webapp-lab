@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import * as R from 'ramda';
 import axios from 'axios';
 
@@ -15,7 +16,7 @@ const fn = ({ query } = {}) => {
             R.identity,
             R.applySpec({
               value: R.prop('pk'),
-              label: R.prop('username'),
+              label: ({ username, full_name }) => `${username} ( ${full_name} )`,
             }),
           ]
         )
