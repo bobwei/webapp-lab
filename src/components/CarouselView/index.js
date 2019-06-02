@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 const Comp = ({ photos }) => {
   const settings = {
     centerMode: true,
-    centerPadding: '12%',
+    centerPadding: '5%',
     infinite: false,
     speed: 300,
   };
@@ -28,10 +28,9 @@ const Comp = ({ photos }) => {
       <style jsx>
         {`
           .block {
-            width: 85%;
+            width: 95%;
             margin: 10px auto;
-            box-shadow: rgba(0, 0, 0, 0.22) 0 0 12px;
-            border-radius: 10px;
+            border-radius: 3px;
             overflow: hidden;
           }
 
