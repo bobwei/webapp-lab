@@ -11,4 +11,6 @@
 .content {
   margin: 20px -15px;
   overflow: hidden;
+  position: relative;
+  z-index: 0;
 }
