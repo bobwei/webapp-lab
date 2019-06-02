@@ -9,6 +9,7 @@ import throttle from 'lodash/throttle';
 
 import getPhotos from '../src/functions/instagram/getPhotos';
 import getUsers from '../src/functions/instagram/getUsers';
+import './index.css';
 
 const Comp = () => {
   const [photos, setPhotos] = useState([]);
@@ -54,38 +55,6 @@ const Comp = () => {
             </div>
           </Col>
         </Row>
-        <style jsx>
-          {`
-            .container {
-              padding: 0;
-            }
-            .photos-container {
-              margin: 0 auto;
-            }
-            @media (min-width: 768px) {
-              .photos-container {
-                margin: 50px 0;
-              }
-            }
-            .photo {
-              display: inline-block;
-              width: 33.33%;
-              padding-bottom: 33.33%;
-              background-repeat: no-repeat;
-              background-size: cover;
-              background-position: 50%;
-              margin-bottom: -6px;
-            }
-            .search-form {
-              margin-top: 1rem;
-            }
-            @media (min-width: 768px) {
-              .search-form {
-                margin-top: 50px;
-              }
-            }
-          `}
-        </style>
       </Container>
     </>
   );
