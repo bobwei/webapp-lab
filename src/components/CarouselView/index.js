@@ -11,6 +11,10 @@ const Comp = ({ photos }) => {
       swiper = new Swiper(swiperRef.current, {
         centeredSlides: true,
         slidesPerView: 'auto',
+        simulateTouch: true,
+        keyboard: {
+          enabled: true,
+        },
       });
     }
   });
