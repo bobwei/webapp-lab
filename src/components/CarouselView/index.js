@@ -26,6 +26,9 @@ const Comp = ({ photos }) => {
             const { src, location } = photo;
             return (
               <div key={src} className="block swiper-slide" onClick={createOnClick({ photo })}>
+                <div className="overlay-top">
+                  <i className="fas fa-external-link-alt" />
+                </div>
                 <div className="photo" style={{ backgroundImage: `url(${src})` }} />
                 {location && (
                   <div className="overlay">
@@ -76,6 +79,18 @@ const Comp = ({ photos }) => {
 
           .location > i {
             margin-right: 8px;
+          }
+
+          .overlay-top {
+            color: white;
+            height: 60px;
+            position: absolute;
+            right: 0;
+            left: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25));
+            padding: 10px;
+            display: flex;
+            justify-content: flex-end;
           }
         `}
       </style>
