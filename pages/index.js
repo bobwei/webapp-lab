@@ -11,6 +11,7 @@ import throttle from 'lodash/throttle';
 import getPhotos from '../src/functions/instagram/getPhotos';
 import getUsers from '../src/functions/instagram/getUsers';
 import CarouselView from '../src/components/CarouselView';
+import UserItem from '../src/components/UserItem';
 import './index.css';
 
 const Comp = () => {
@@ -63,7 +64,7 @@ const Comp = () => {
                   return (
                     <div key={user.value} className="photo-group">
                       <a href={`https://instagram.com/${user.label}`} target="_blank">
-                        <h4>{user.label}</h4>
+                        <UserItem {...user} />
                       </a>
                       <div className="content">
                         <CarouselView photos={photos} />
