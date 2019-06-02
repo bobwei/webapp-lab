@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'reactstrap';
 import { Navbar, NavbarBrand } from 'reactstrap';
-import { Form, FormGroup } from 'reactstrap';
+import { Form, FormGroup, Label } from 'reactstrap';
 import Select from 'react-select';
 import throttle from 'lodash/throttle';
 
@@ -39,6 +39,7 @@ const Comp = () => {
               {options && (
                 <Form>
                   <FormGroup>
+                    <Label>Search by Instagram username</Label>
                     <Select
                       autoFocus
                       options={options}
