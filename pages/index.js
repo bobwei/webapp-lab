@@ -9,6 +9,7 @@ import throttle from 'lodash/throttle';
 
 import getPhotos from '../src/functions/instagram/getPhotos';
 import getUsers from '../src/functions/instagram/getUsers';
+import GridView from '../src/components/GridView';
 import './index.css';
 
 const Comp = () => {
@@ -44,15 +45,7 @@ const Comp = () => {
         </Row>
         <Row>
           <Col md={{ size: 6, offset: 3 }}>
-            <div className="photos-container">
-              {photos.map(({ src }) => (
-                <div
-                  key={src}
-                  className="photo"
-                  style={{ backgroundImage: `url(${src})` }}
-                />
-              ))}
-            </div>
+            <GridView photos={photos} />
           </Col>
         </Row>
       </Container>
