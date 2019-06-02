@@ -56,11 +56,20 @@ const Comp = () => {
         </Row>
         <Row>
           <Col md={{ size: 6, offset: 3 }}>
-            <div className="content">
+            <div>
               {photoGroups &&
                 photoGroups.map((photoGroup) => {
                   const { user, photos } = photoGroup;
-                  return <CarouselView key={user.value} photos={photos} />;
+                  return (
+                    <div key={user.value} className="photo-group">
+                      <a href={`https://instagram.com/${user.label}`} target="_blank">
+                        <h4>{user.label}</h4>
+                      </a>
+                      <div className="content">
+                        <CarouselView photos={photos} />
+                      </div>
+                    </div>
+                  );
                 })}
             </div>
           </Col>
