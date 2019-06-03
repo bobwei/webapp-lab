@@ -7,6 +7,7 @@ import { Navbar, NavbarBrand } from 'reactstrap';
 import { Form, FormGroup, Label } from 'reactstrap';
 import Select from 'react-select';
 import throttle from 'lodash/throttle';
+import * as mobilenet from '@tensorflow-models/mobilenet';
 
 import getPhotos from '../src/functions/instagram/getPhotos';
 import getUsers from '../src/functions/instagram/getUsers';
@@ -26,6 +27,7 @@ const Comp = () => {
       setOptions(defaultOptions);
       onOptionChange(defaultOptions[0]);
     }
+    if (!global.modelLoading) global.modelLoading = mobilenet.load();
   });
   return (
     <>
