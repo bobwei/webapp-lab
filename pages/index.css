@@ -27,3 +27,11 @@ a:hover {
   color: #262626;
   text-decoration: none;
 }
+
+.fa,
+.fas,
+.far,
+.fal,
+.fab {
+  line-height: 24px;
+}
