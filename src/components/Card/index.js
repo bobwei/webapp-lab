@@ -5,7 +5,7 @@ import PredictButton from '../PredictButton';
 const Comp = ({ photo }) => {
   const [tags, setTags] = useState([]);
   const [isPredicting, setIsPredicting] = useState(false);
-  const { id, src, location } = photo;
+  const { src, location } = photo;
   return (
     <>
       <div className="block swiper-slide" onClick={createOnClick({ photo })}>
