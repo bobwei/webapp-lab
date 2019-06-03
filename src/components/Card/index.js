@@ -15,8 +15,8 @@ const Comp = ({ photo }) => {
         <div className="photo" style={{ backgroundImage: `url(${src})` }} />
         {location && (
           <div className="overlay">
-            <div className="tag">{tags.join(', ')}</div>
-            <div className="location">
+            <div className="description">
+              <div className="tag">{tags.join(', ')}</div>
               <i className="fas fa-map-marker-alt" />
               {location.name}
             </div>
@@ -49,19 +49,19 @@ const Comp = ({ photo }) => {
 
           .overlay {
             color: white;
-            height: 100px;
+            height: 140px;
             position: absolute;
             right: 0;
             bottom: 0;
             left: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
             display: flex;
             align-items: flex-end;
             justify-content: space-between;
             padding: 20px;
           }
 
-          .location > i {
+          .description > i {
             margin-right: 8px;
           }
 
@@ -84,9 +84,8 @@ const Comp = ({ photo }) => {
           }
 
           .tag {
-            color: cornsilk;
-            position: absolute;
-            bottom: 55px;
+            color: white;
+            margin-bottom: 10px;
           }
         `}
       </style>
