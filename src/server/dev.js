@@ -13,7 +13,7 @@ nextApp
   .then(() => {
     const app = express();
 
-    app.use('/proxy', proxyApp);
+    app.use(proxyApp);
     app.all('*', handle);
 
     app.listen(port, (err) => {
