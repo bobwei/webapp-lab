@@ -3,6 +3,14 @@ const proxy = require('http-proxy-middleware');
 
 const configs = [
   [
+    '/proxy/vp',
+    {
+      target: 'https://scontent-tpe1-1.cdninstagram.com',
+      pathRewrite: { '^/proxy/vp': '/vp' },
+      changeOrigin: true,
+    },
+  ],
+  [
     '/proxy',
     {
       target: 'https://www.instagram.com',

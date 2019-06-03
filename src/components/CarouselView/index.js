@@ -1,9 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Swiper from 'swiper';
-
+import * as mobilenet from '@tensorflow-models/mobilenet';
 import 'swiper/dist/css/swiper.min.css';
 
+import PredictButton from '../PredictButton';
+
+let modelLoading;
+
 const Comp = ({ photos }) => {
+  const [isPredicting, setIsPredicting] = useState(false);
   const swiperRef = React.createRef();
   let swiper;
   useEffect(() => {
@@ -17,6 +22,7 @@ const Comp = ({ photos }) => {
         },
       });
     }
+    if (!modelLoading) modelLoading = mobilenet.load();
   });
   return (
     <>
@@ -36,6 +42,10 @@ const Comp = ({ photos }) => {
                       <i className="fas fa-map-marker-alt" />
                       {location.name}
                     </div>
+                    <PredictButton
+                      isLoading={isPredicting}
+                      onClick={createOnPredictClick({ photo, setIsPredicting })}
+                    />
                   </div>
                 )}
               </div>
@@ -92,11 +102,36 @@ const Comp = ({ photos }) => {
             display: flex;
             justify-content: flex-end;
           }
+
+          .fa-eye {
+            font-size: 22px;
+            padding: 20px;
+            margin: -20px;
+          }
         `}
       </style>
     </>
   );
 };
+
+function createOnPredictClick({ photo, setIsPredicting }) {
+  return async (e) => {
+    e.stopPropagation();
+
+    setIsPredicting(true);
+    const img = new Image();
+    const src = photo.src.replace('https://scontent-tpe1-1.cdninstagram.com', '/proxy');
+    img.src = src;
+    img.onload = async () => {
+      const model = await modelLoading;
+      const predictions = await model.classify(img);
+      setIsPredicting(false);
+    };
+    img.onerror = () => {
+      setIsPredicting(false);
+    };
+  };
+}
 
 function createOnClick({ photo }) {
   const { location, url } = photo;
