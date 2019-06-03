@@ -72,8 +72,8 @@ const Comp = ({ photos }) => {
             left: 0;
             background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
             display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
+            align-items: flex-end;
+            justify-content: space-between;
             padding: 20px;
           }
 
