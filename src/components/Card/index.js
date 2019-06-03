@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import PredictButton from '../PredictButton';
 
 const Comp = ({ photo }) => {
+  const [tags, setTags] = useState([]);
   const [isPredicting, setIsPredicting] = useState(false);
-  const { src, location } = photo;
+  const { id, src, location } = photo;
   return (
     <>
       <div className="block swiper-slide" onClick={createOnClick({ photo })}>
@@ -14,13 +15,14 @@ const Comp = ({ photo }) => {
         <div className="photo" style={{ backgroundImage: `url(${src})` }} />
         {location && (
           <div className="overlay">
+            <div className="tag">{tags.join(', ')}</div>
             <div className="location">
               <i className="fas fa-map-marker-alt" />
               {location.name}
             </div>
             <PredictButton
               isLoading={isPredicting}
-              onClick={createOnPredictClick({ photo, setIsPredicting })}
+              onClick={createOnPredictClick({ photo, setIsPredicting, setTags })}
             />
           </div>
         )}
@@ -80,13 +82,19 @@ const Comp = ({ photo }) => {
             padding: 20px;
             margin: -20px;
           }
+
+          .tag {
+            color: cornsilk;
+            position: absolute;
+            bottom: 55px;
+          }
         `}
       </style>
     </>
   );
 };
 
-function createOnPredictClick({ photo, setIsPredicting }) {
+function createOnPredictClick({ photo, setIsPredicting, setTags }) {
   return async (e) => {
     e.stopPropagation();
 
@@ -97,7 +105,7 @@ function createOnPredictClick({ photo, setIsPredicting }) {
     img.onload = async () => {
       const model = await global.modelLoading;
       const predictions = await model.classify(img);
-      console.log(predictions);
+      setTags(predictions.map(({ className }) => `#${className}`));
       setIsPredicting(false);
     };
     img.onerror = () => {
