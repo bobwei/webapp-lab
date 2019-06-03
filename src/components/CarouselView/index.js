@@ -101,8 +101,8 @@ const Comp = ({ photos }) => {
 function createOnClick({ photo }) {
   const { location, url } = photo;
   return (e) => {
-    const $photo = e.currentTarget.querySelector('.photo');
-    const isOverlayClicked = !e.target.contains($photo);
+    const $overlay = e.currentTarget.querySelector('.overlay');
+    const isOverlayClicked = $overlay.contains(e.target);
     if (isOverlayClicked && location) {
       window.open(`https://www.google.com/maps?q=${location.name}`, '_blank');
       return;
