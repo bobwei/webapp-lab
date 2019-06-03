@@ -45,7 +45,6 @@ const Comp = () => {
                   <FormGroup>
                     <Label>Search by Instagram username</Label>
                     <Select
-                      autoFocus
                       options={options}
                       value={query}
                       onChange={onOptionChange}
