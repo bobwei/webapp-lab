@@ -99,7 +99,8 @@ function createOnPredictClick({ photo, setIsPredicting, setTags }) {
 
     setIsPredicting(true);
     const img = new Image();
-    const src = photo.src.replace('https://scontent-tpe1-1.cdninstagram.com', '/proxy');
+    const { origin, hostname } = new URL(photo.src);
+    const src = photo.src.replace(origin, `/proxy/${hostname}`);
     img.src = src;
     img.onload = async () => {
       const model = await global.modelLoading;
