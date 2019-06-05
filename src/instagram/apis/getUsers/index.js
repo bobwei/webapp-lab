@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import axios from 'axios';
 
-import mapToUser from '../mappers/mapToUser';
+import mapToUser from './mapper';
 
 const fn = ({ query } = {}) => {
   return axios
