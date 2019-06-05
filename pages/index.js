@@ -14,11 +14,13 @@ import getUsers from '../src/instagram/apis/getUsers';
 import CarouselView from '../src/components/CarouselView';
 import UserItem from '../src/components/UserItem';
 import './index.css';
+import getFollowings from '../src/instagram/apis/getFollowings';
 
 const Comp = () => {
   const [photoGroups, setPhotoGroups] = useState(null);
   const [options, setOptions] = useState(null);
   const [query, setQuery] = useState(null);
+  const [users, setUsers] = useState(null);
   const onInputChange = createOnInputChange({ setOptions });
   const onOptionChange = createOnOptionChange({ setQuery, setPhotoGroups });
   useEffect(() => {
@@ -28,6 +30,9 @@ const Comp = () => {
       onOptionChange(defaultOptions[0]);
     }
     if (!global.modelLoading) global.modelLoading = mobilenet.load();
+    if (!users) {
+      getFollowings({ id: '110379' }).then(setUsers);
+    }
   });
   return (
     <>
@@ -74,6 +79,14 @@ const Comp = () => {
                   );
                 })}
             </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={{ size: 6, offset: 3 }}>
+            {users &&
+              users.map((user) => {
+                return <UserItem key={user.id} {...user} />;
+              })}
           </Col>
         </Row>
       </Container>
