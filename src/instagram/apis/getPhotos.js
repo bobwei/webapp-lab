@@ -1,7 +1,6 @@
 import * as R from 'ramda';
 import axios from 'axios';
 
-import getEdges from '../mappers/getEdges';
 import mapEdgeToPhoto from '../mappers/mapEdgeToPhoto';
 
 const fn = ({ id } = {}) => {
@@ -11,7 +10,7 @@ const fn = ({ id } = {}) => {
     .then(R.path(['data']))
     .then(
       R.pipe(
-        getEdges,
+        R.path(['data', 'user', 'edge_owner_to_timeline_media', 'edges']),
         R.map(mapEdgeToPhoto),
       ),
     );
