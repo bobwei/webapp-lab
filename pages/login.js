@@ -5,7 +5,7 @@ import { Container, Row, Col } from 'reactstrap';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import Router from 'next/router';
 
-import login from '../src/functions/instagram/login';
+import login from '../src/instagram/apis/login';
 
 const Comp = () => {
   const [username, setUsername] = useState('');

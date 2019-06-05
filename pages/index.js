@@ -9,8 +9,8 @@ import Select from 'react-select';
 import throttle from 'lodash/throttle';
 import * as mobilenet from '@tensorflow-models/mobilenet';
 
-import getPhotos from '../src/functions/instagram/getPhotos';
-import getUsers from '../src/functions/instagram/getUsers';
+import getPhotos from '../src/instagram/apis/getPhotos';
+import getUsers from '../src/instagram/apis/getUsers';
 import CarouselView from '../src/components/CarouselView';
 import UserItem from '../src/components/UserItem';
 import './index.css';

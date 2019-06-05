@@ -1,8 +1,8 @@
 import * as R from 'ramda';
 import axios from 'axios';
 
-import getEdges from './getEdges';
-import mapEdgeToPhoto from './mapEdgeToPhoto';
+import getEdges from '../mappers/getEdges';
+import mapEdgeToPhoto from '../mappers/mapEdgeToPhoto';
 
 const fn = ({ id } = {}) => {
   const url = `/proxy/www.instagram.com/graphql/query/?query_hash=f2405b236d85e8296cf30347c9f08c2a&variables={"id":"${id}","first":12}`;
