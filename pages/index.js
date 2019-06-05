@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.css';
-import { Container, Row, Col } from 'reactstrap';
-import { Navbar, NavbarBrand } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import { Form, FormGroup, Label } from 'reactstrap';
 import { Button } from 'reactstrap';
 import Select from 'react-select';
@@ -15,14 +14,17 @@ import getUsers from '../src/instagram/apis/getUsers';
 import CarouselView from '../src/components/CarouselView';
 import UserItem from '../src/components/UserItem';
 import Section from '../src/components/Section';
+import Page from '../src/components/Page';
 import './index.css';
 import getFollowings from '../src/instagram/apis/getFollowings';
+import isAuthenticated from '../src/instagram/functions/isAuthenticated';
 
 const Comp = () => {
   const [photoGroups, setPhotoGroups] = useState(null);
   const [options, setOptions] = useState(null);
   const [query, setQuery] = useState(null);
   const [users, setUsers] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const onInputChange = createOnInputChange({ setOptions });
   const onOptionChange = createOnOptionChange({ setQuery, setPhotoGroups });
   useEffect(() => {
@@ -35,15 +37,11 @@ const Comp = () => {
     if (!users) {
       getFollowings({ id: '110379' }).then(setUsers);
     }
+    setIsLoggedIn(isAuthenticated());
   });
   return (
     <>
-      <Navbar color="light" light expand="md">
-        <Container>
-          <NavbarBrand href="/">Instagram</NavbarBrand>
-        </Container>
-      </Navbar>
-      <Container>
+      <Page>
         <Section>
           <Row>
             <Col md={{ size: 6, offset: 3 }}>
@@ -87,15 +85,17 @@ const Comp = () => {
             </Col>
           </Row>
         </Section>
-        <Section>
-          <Row>
-            <Col md={{ size: 6, offset: 3 }}>
-              <Button color="primary" block>
-                Login with Instagram
-              </Button>
-            </Col>
-          </Row>
-        </Section>
+        {!isLoggedIn && (
+          <Section>
+            <Row>
+              <Col md={{ size: 6, offset: 3 }}>
+                <Button color="primary" block href="/login">
+                  Login with Instagram
+                </Button>
+              </Col>
+            </Row>
+          </Section>
+        )}
         <Section>
           <Row>
             <Col md={{ size: 6, offset: 3 }}>
@@ -106,7 +106,7 @@ const Comp = () => {
             </Col>
           </Row>
         </Section>
-      </Container>
+      </Page>
     </>
   );
 };

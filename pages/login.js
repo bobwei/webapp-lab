@@ -42,7 +42,7 @@ const Comp = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </FormGroup>
-                <Button>Submit</Button>
+                <Button color="primary">Submit</Button>
               </Form>
             </div>
           </Col>
