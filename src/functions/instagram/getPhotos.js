@@ -5,11 +5,16 @@ import getEdges from './getEdges';
 import mapEdgeToPhoto from './mapEdgeToPhoto';
 
 const fn = ({ id } = {}) => {
-  // prettier-ignore
+  const url = `/proxy/www.instagram.com/graphql/query/?query_hash=f2405b236d85e8296cf30347c9f08c2a&variables={"id":"${id}","first":12}`;
   return axios
-    .get(`/proxy/www.instagram.com/graphql/query/?query_hash=f2405b236d85e8296cf30347c9f08c2a&variables={"id":"${id}","first":12}`)
+    .get(url, { withCredentials: true })
     .then(R.path(['data']))
-    .then(R.pipe(getEdges, R.map(mapEdgeToPhoto)));
+    .then(
+      R.pipe(
+        getEdges,
+        R.map(mapEdgeToPhoto),
+      ),
+    );
 };
 
 export default fn;

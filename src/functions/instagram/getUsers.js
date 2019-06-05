@@ -5,7 +5,7 @@ import axios from 'axios';
 const fn = ({ query } = {}) => {
   // prettier-ignore
   return axios
-    .get(`/proxy/web/search/topsearch/?query=${query}`)
+    .get(`/proxy/web/search/topsearch/?query=${query}`, { withCredentials: true })
     .then(R.path(['data']))
     .then(R.pipe(R.path(['users']), R.map(R.prop('user'))))
     .then(
