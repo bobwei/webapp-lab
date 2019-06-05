@@ -31,7 +31,7 @@ const Comp = ({ photo }) => {
         {`
           .block {
             width: 80%;
-            margin: 10px 10px;
+            margin: 5px 10px;
             border-radius: 3px;
             overflow: hidden;
             position: relative;

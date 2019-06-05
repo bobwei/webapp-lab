@@ -3,7 +3,11 @@ body {
 }
 
 .search-form {
-  margin-top: 1rem;
+  margin-top: 10px;
+}
+
+.search-form .form-group {
+  margin-bottom: 0;
 }
 
 @media (min-width: 768px) {
@@ -17,10 +21,6 @@ body {
   overflow: hidden;
   position: relative;
   z-index: 0;
-}
-
-.photo-group {
-  margin: 10px 0;
 }
 
 a {

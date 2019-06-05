@@ -5,6 +5,7 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import { Container, Row, Col } from 'reactstrap';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import { Form, FormGroup, Label } from 'reactstrap';
+import { Button } from 'reactstrap';
 import Select from 'react-select';
 import throttle from 'lodash/throttle';
 import * as mobilenet from '@tensorflow-models/mobilenet';
@@ -13,6 +14,7 @@ import getPhotos from '../src/instagram/apis/getPhotos';
 import getUsers from '../src/instagram/apis/getUsers';
 import CarouselView from '../src/components/CarouselView';
 import UserItem from '../src/components/UserItem';
+import Section from '../src/components/Section';
 import './index.css';
 import getFollowings from '../src/instagram/apis/getFollowings';
 
@@ -42,53 +44,68 @@ const Comp = () => {
         </Container>
       </Navbar>
       <Container>
-        <Row>
-          <Col md={{ size: 6, offset: 3 }}>
-            <div className="search-form">
-              {options && (
-                <Form>
-                  <FormGroup>
-                    <Label>Search by Instagram username</Label>
-                    <Select
-                      options={options}
-                      value={query}
-                      onChange={onOptionChange}
-                      onInputChange={onInputChange}
-                    />
-                  </FormGroup>
-                </Form>
-              )}
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={{ size: 6, offset: 3 }}>
-            <div>
-              {photoGroups &&
-                photoGroups.map((photoGroup) => {
-                  const { user, photos } = photoGroup;
-                  return (
-                    <div key={user.value} className="photo-group">
-                      <a href={`https://instagram.com/${user.username}`} target="_blank">
-                        <UserItem {...user} />
-                      </a>
-                      <div className="content">
-                        <CarouselView photos={photos} />
+        <Section>
+          <Row>
+            <Col md={{ size: 6, offset: 3 }}>
+              <div className="search-form">
+                {options && (
+                  <Form>
+                    <FormGroup>
+                      <Label>Search by Instagram username</Label>
+                      <Select
+                        options={options}
+                        value={query}
+                        onChange={onOptionChange}
+                        onInputChange={onInputChange}
+                      />
+                    </FormGroup>
+                  </Form>
+                )}
+              </div>
+            </Col>
+          </Row>
+        </Section>
+        <Section>
+          <Row>
+            <Col md={{ size: 6, offset: 3 }}>
+              <div>
+                {photoGroups &&
+                  photoGroups.map((photoGroup) => {
+                    const { user, photos } = photoGroup;
+                    return (
+                      <div key={user.value} className="photo-group">
+                        <a href={`https://instagram.com/${user.username}`} target="_blank">
+                          <UserItem {...user} />
+                        </a>
+                        <div className="content">
+                          <CarouselView photos={photos} />
+                        </div>
                       </div>
-                    </div>
-                  );
+                    );
+                  })}
+              </div>
+            </Col>
+          </Row>
+        </Section>
+        <Section>
+          <Row>
+            <Col md={{ size: 6, offset: 3 }}>
+              <Button color="primary" block>
+                Login with Instagram
+              </Button>
+            </Col>
+          </Row>
+        </Section>
+        <Section>
+          <Row>
+            <Col md={{ size: 6, offset: 3 }}>
+              {users &&
+                users.map((user) => {
+                  return <UserItem key={user.id} {...user} />;
                 })}
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={{ size: 6, offset: 3 }}>
-            {users &&
-              users.map((user) => {
-                return <UserItem key={user.id} {...user} />;
-              })}
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+        </Section>
       </Container>
     </>
   );
