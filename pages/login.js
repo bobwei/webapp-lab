@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, NavbarBrand } from 'reactstrap';
-import { Container, Row, Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import Router from 'next/router';
 
