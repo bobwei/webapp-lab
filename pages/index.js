@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import { Row, Col } from 'reactstrap';
@@ -16,14 +16,14 @@ import UserItem from '../src/components/UserItem';
 import Section from '../src/components/Section';
 import './index.css';
 import getFollowings from '../src/instagram/apis/getFollowings';
-import isAuthenticated from '../src/instagram/functions/isAuthenticated';
+import AuthContext from '../src/instagram/auth/context';
 
 const Comp = () => {
   const [photoGroups, setPhotoGroups] = useState(null);
   const [options, setOptions] = useState(null);
   const [query, setQuery] = useState(null);
   const [users, setUsers] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const { authenticated } = useContext(AuthContext);
   const onInputChange = createOnInputChange({ setOptions });
   const onOptionChange = createOnOptionChange({ setQuery, setPhotoGroups });
   useEffect(() => {
@@ -36,7 +36,6 @@ const Comp = () => {
     if (!users) {
       getFollowings({ id: '110379' }).then(setUsers);
     }
-    setIsLoggedIn(isAuthenticated());
   });
   return (
     <>
@@ -83,7 +82,7 @@ const Comp = () => {
           </Col>
         </Row>
       </Section>
-      {!isLoggedIn && (
+      {!authenticated && (
         <Section>
           <Row>
             <Col md={{ size: 6, offset: 3 }}>
@@ -94,16 +93,17 @@ const Comp = () => {
           </Row>
         </Section>
       )}
-      <Section>
-        <Row>
-          <Col md={{ size: 6, offset: 3 }}>
-            {users &&
-              users.map((user) => {
+      {authenticated && users && (
+        <Section>
+          <Row>
+            <Col md={{ size: 6, offset: 3 }}>
+              {users.map((user) => {
                 return <UserItem key={user.id} {...user} />;
               })}
-          </Col>
-        </Row>
-      </Section>
+            </Col>
+          </Row>
+        </Section>
+      )}
     </>
   );
 };

@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import axios from 'axios';
 import querystring from 'query-string';
+import * as R from 'ramda';
 
 const fn = (data) => {
   const postData = querystring.stringify({
@@ -14,7 +15,8 @@ const fn = (data) => {
       headers: {
         'content-type': 'application/x-www-form-urlencoded'
       },
-    });
+    })
+    .then(R.path(['data']));
 };
 
 export default fn;
