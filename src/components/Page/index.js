@@ -16,7 +16,6 @@ const Comp = ({ children }) => {
       <Navbar color="light" light expand="md">
         <Container>
           <NavbarBrand href="/">Instagram</NavbarBrand>
-
           <NavbarToggler onClick={() => setIsOpen((state) => !state)} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto" navbar>
