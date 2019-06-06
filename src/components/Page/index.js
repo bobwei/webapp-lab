@@ -8,8 +8,9 @@ import logout from '../../instagram/apis/logout';
 
 const Comp = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { authenticated, setAuth } = useContext(AuthContext);
-  const onLogout = createOnLogoutClick({ setAuth });
+  const onLogout = createOnLogoutClick({ setAuth, setIsLoading });
   return (
     <>
       <Navbar color="light" light expand="md">
@@ -21,7 +22,7 @@ const Comp = ({ children }) => {
             <Nav className="ml-auto" navbar>
               {authenticated && (
                 <NavItem onClick={onLogout}>
-                  <NavLink>Log Out</NavLink>
+                  <NavLink>{isLoading ? 'Loading...' : 'Log Out'}</NavLink>
                 </NavItem>
               )}
               {!authenticated && (
@@ -38,10 +39,19 @@ const Comp = ({ children }) => {
   );
 };
 
-function createOnLogoutClick({ setAuth }) {
+function createOnLogoutClick({ setAuth, setIsLoading }) {
   return () => {
     if (window.confirm('Are you sure you want to log out ?')) {
-      logout().then(() => setAuth({ authenticated: false }));
+      setIsLoading(true);
+      logout()
+        .then(() => {
+          setAuth({ authenticated: false });
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          alert(error);
+          setIsLoading(false);
+        });
     }
   };
 }

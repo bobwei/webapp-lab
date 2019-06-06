@@ -11,8 +11,9 @@ import login from '../src/instagram/apis/login';
 const Comp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { setAuth } = useContext(AuthContext);
-  const onSubmit = createOnSubmit({ data: { username, password }, setAuth });
+  const onSubmit = createOnSubmit({ data: { username, password }, setAuth, setIsLoading });
   return (
     <>
       <Row>
@@ -38,7 +39,9 @@ const Comp = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </FormGroup>
-              <Button color="primary">Submit</Button>
+              <Button color="primary" disabled={isLoading}>
+                {isLoading ? 'Loading...' : 'Submit'}
+              </Button>
             </Form>
           </div>
         </Col>
@@ -54,12 +57,20 @@ const Comp = () => {
   );
 };
 
-function createOnSubmit({ data, setAuth }) {
+function createOnSubmit({ data, setAuth, setIsLoading }) {
   return (e) => {
     e.preventDefault();
+    setIsLoading(true);
     login(data)
       .then(R.tap(setAuth))
-      .then(() => Router.push('/'));
+      .then(() => {
+        setIsLoading(false);
+        Router.push('/');
+      })
+      .catch((error) => {
+        alert(error);
+        setIsLoading(false);
+      });
   };
 }
 
