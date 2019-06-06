@@ -23,7 +23,7 @@ const Comp = () => {
   const [options, setOptions] = useState(null);
   const [query, setQuery] = useState(null);
   const [users, setUsers] = useState(null);
-  const { authenticated } = useContext(AuthContext);
+  const { authenticated, userId } = useContext(AuthContext);
   const onInputChange = createOnInputChange({ setOptions });
   const onOptionChange = createOnOptionChange({ setQuery, setPhotoGroups });
   useEffect(() => {
@@ -33,8 +33,8 @@ const Comp = () => {
       onOptionChange(defaultOptions[0]);
     }
     if (!global.modelLoading) global.modelLoading = mobilenet.load();
-    if (!users) {
-      getFollowings({ id: '110379' }).then(setUsers);
+    if (!users && userId) {
+      getFollowings({ id: userId }).then(setUsers);
     }
   });
   return (
