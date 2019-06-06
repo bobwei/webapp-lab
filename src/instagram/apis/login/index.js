@@ -16,7 +16,14 @@ const fn = (data) => {
         'content-type': 'application/x-www-form-urlencoded'
       },
     })
-    .then(R.path(['data']));
+    .then(R.path(['data']))
+    .then((response) => {
+      const { authenticated } = response;
+      if (!authenticated) {
+        throw new Error('Not authenticated.');
+      }
+      return response;
+    });
 };
 
 export default fn;
