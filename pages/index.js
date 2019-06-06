@@ -14,7 +14,6 @@ import getUsers from '../src/instagram/apis/getUsers';
 import CarouselView from '../src/components/CarouselView';
 import UserItem from '../src/components/UserItem';
 import Section from '../src/components/Section';
-import Page from '../src/components/Page';
 import './index.css';
 import getFollowings from '../src/instagram/apis/getFollowings';
 import isAuthenticated from '../src/instagram/functions/isAuthenticated';
@@ -41,72 +40,70 @@ const Comp = () => {
   });
   return (
     <>
-      <Page>
-        <Section>
-          <Row>
-            <Col md={{ size: 6, offset: 3 }}>
-              <div className="search-form">
-                {options && (
-                  <Form>
-                    <FormGroup>
-                      <Label>Search by Instagram username</Label>
-                      <Select
-                        options={options}
-                        value={query}
-                        onChange={onOptionChange}
-                        onInputChange={onInputChange}
-                      />
-                    </FormGroup>
-                  </Form>
-                )}
-              </div>
-            </Col>
-          </Row>
-        </Section>
-        <Section>
-          <Row>
-            <Col md={{ size: 6, offset: 3 }}>
-              <div>
-                {photoGroups &&
-                  photoGroups.map((photoGroup) => {
-                    const { user, photos } = photoGroup;
-                    return (
-                      <div key={user.value} className="photo-group">
-                        <a href={`https://instagram.com/${user.username}`} target="_blank">
-                          <UserItem {...user} />
-                        </a>
-                        <div className="content">
-                          <CarouselView photos={photos} />
-                        </div>
+      <Section>
+        <Row>
+          <Col md={{ size: 6, offset: 3 }}>
+            <div className="search-form">
+              {options && (
+                <Form>
+                  <FormGroup>
+                    <Label>Search by Instagram username</Label>
+                    <Select
+                      options={options}
+                      value={query}
+                      onChange={onOptionChange}
+                      onInputChange={onInputChange}
+                    />
+                  </FormGroup>
+                </Form>
+              )}
+            </div>
+          </Col>
+        </Row>
+      </Section>
+      <Section>
+        <Row>
+          <Col md={{ size: 6, offset: 3 }}>
+            <div>
+              {photoGroups &&
+                photoGroups.map((photoGroup) => {
+                  const { user, photos } = photoGroup;
+                  return (
+                    <div key={user.value} className="photo-group">
+                      <a href={`https://instagram.com/${user.username}`} target="_blank">
+                        <UserItem {...user} />
+                      </a>
+                      <div className="content">
+                        <CarouselView photos={photos} />
                       </div>
-                    );
-                  })}
-              </div>
-            </Col>
-          </Row>
-        </Section>
-        {!isLoggedIn && (
-          <Section>
-            <Row>
-              <Col md={{ size: 6, offset: 3 }}>
-                <Button color="primary" block href="/login">
-                  Login with Instagram
-                </Button>
-              </Col>
-            </Row>
-          </Section>
-        )}
+                    </div>
+                  );
+                })}
+            </div>
+          </Col>
+        </Row>
+      </Section>
+      {!isLoggedIn && (
         <Section>
           <Row>
             <Col md={{ size: 6, offset: 3 }}>
-              {users &&
-                users.map((user) => {
-                  return <UserItem key={user.id} {...user} />;
-                })}
+              <Button color="primary" block href="/login">
+                Login with Instagram
+              </Button>
             </Col>
           </Row>
         </Section>
-      </Page>
+      )}
+      <Section>
+        <Row>
+          <Col md={{ size: 6, offset: 3 }}>
+            {users &&
+              users.map((user) => {
+                return <UserItem key={user.id} {...user} />;
+              })}
+          </Col>
+        </Row>
+      </Section>
     </>
   );
 };

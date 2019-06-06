@@ -13,41 +13,34 @@ const Comp = () => {
   const onSubmit = createOnSubmit({ username, password });
   return (
     <>
-      <Navbar color="light" light expand="md">
-        <Container>
-          <NavbarBrand href="/">Instagram</NavbarBrand>
-        </Container>
-      </Navbar>
-      <Container>
-        <Row>
-          <Col md={{ size: 6, offset: 3 }}>
-            <div className="form-wrapper">
-              <Form onSubmit={onSubmit}>
-                <FormGroup>
-                  <Label>Username</Label>
-                  <Input
-                    type="text"
-                    placeholder="username"
-                    autoFocus
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Label>Password</Label>
-                  <Input
-                    type="password"
-                    placeholder="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </FormGroup>
-                <Button color="primary">Submit</Button>
-              </Form>
-            </div>
-          </Col>
-        </Row>
-      </Container>
+      <Row>
+        <Col md={{ size: 6, offset: 3 }}>
+          <div className="form-wrapper">
+            <Form onSubmit={onSubmit}>
+              <FormGroup>
+                <Label>Username</Label>
+                <Input
+                  type="text"
+                  placeholder="username"
+                  autoFocus
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label>Password</Label>
+                <Input
+                  type="password"
+                  placeholder="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </FormGroup>
+              <Button color="primary">Submit</Button>
+            </Form>
+          </div>
+        </Col>
+      </Row>
       <style jsx>
         {`
           .form-wrapper {
