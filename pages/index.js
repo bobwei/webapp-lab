@@ -14,7 +14,7 @@ import getUsers from '../src/instagram/apis/getUsers';
 import SwiperView from '../src/components/SwiperView';
 import UserItem from '../src/components/UserItem';
 import Section from '../src/components/Section';
-import Card from '../src/components/Card';
+import Photo from '../src/components/Photo';
 import './index.css';
 import getFollowings from '../src/instagram/apis/getFollowings';
 import AuthContext from '../src/instagram/auth/context';
@@ -77,7 +77,7 @@ const Comp = () => {
                         <SwiperView>
                           {() =>
                             photos.map((photo) => {
-                              return <Card key={photo.id} photo={photo} />;
+                              return <Photo key={photo.id} photo={photo} />;
                             })
                           }
                         </SwiperView>
