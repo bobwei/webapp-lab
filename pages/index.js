@@ -11,9 +11,10 @@ import * as mobilenet from '@tensorflow-models/mobilenet';
 
 import getPhotos from '../src/instagram/apis/getPhotos';
 import getUsers from '../src/instagram/apis/getUsers';
-import CarouselView from '../src/components/CarouselView';
+import SwiperView from '../src/components/SwiperView';
 import UserItem from '../src/components/UserItem';
 import Section from '../src/components/Section';
+import Card from '../src/components/Card';
 import './index.css';
 import getFollowings from '../src/instagram/apis/getFollowings';
 import AuthContext from '../src/instagram/auth/context';
@@ -73,7 +74,13 @@ const Comp = () => {
                         <UserItem {...user} />
                       </a>
                       <div className="content">
-                        <CarouselView photos={photos} />
+                        <SwiperView>
+                          {() =>
+                            photos.map((photo) => {
+                              return <Card key={photo.id} photo={photo} />;
+                            })
+                          }
+                        </SwiperView>
                       </div>
                     </div>
                   );
