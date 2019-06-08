@@ -98,7 +98,7 @@ const Comp = () => {
           <Row>
             <Col md={{ size: 6, offset: 3 }}>
               {users.map((user) => {
-                return <UserItem key={user.id} {...user} />;
+                return <UserItem key={user.id} {...user} withCheckButton />;
               })}
             </Col>
           </Row>
