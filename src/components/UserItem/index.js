@@ -2,14 +2,14 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 
-const Comp = ({ profile_pic_url, username, full_name, withCheckButton }) => {
+const Comp = ({ profile_pic_url, username, full_name, withCheckButton, onCheckClick }) => {
   return (
     <div className="user">
       <div className="photo" style={{ backgroundImage: `url(${profile_pic_url})` }} />
       <div className="content">
         {withCheckButton && (
           <div className="btn-wrapper">
-            <Button color="primary" size="sm">
+            <Button color="primary" size="sm" onClick={onCheckClick}>
               Check
             </Button>
           </div>
