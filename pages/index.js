@@ -60,7 +60,7 @@ const Comp = () => {
           </Col>
         </Row>
       </Section>
-      <Section>
+      <Section title="Recommended">
         <Row>
           <Col md={{ size: 6, offset: 3 }}>
             <div>
@@ -94,7 +94,7 @@ const Comp = () => {
         </Section>
       )}
       {authenticated && users && (
-        <Section>
+        <Section title="Followings">
           <Row>
             <Col md={{ size: 6, offset: 3 }}>
               {users.map((user) => {

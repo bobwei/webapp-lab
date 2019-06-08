@@ -1,18 +1,25 @@
 import React from 'react';
 
-const Comp = ({ children }) => {
+const Comp = ({ children, title }) => {
   return (
     <>
-      <div className="section">{children}</div>
+      <div className="section">
+        {title && <h4>{title}</h4>}
+        {children}
+      </div>
       <style jsx>
         {`
           .section {
-            padding: 10px 0;
+            padding: 15px 0;
           }
         `}
       </style>
     </>
   );
+};
+
+Comp.defaultProps = {
+  title: '',
 };
 
 export default Comp;
