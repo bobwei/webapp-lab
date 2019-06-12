@@ -26,6 +26,7 @@ const Comp = () => {
   const [options, setOptions] = useState(null);
   const [query, setQuery] = useState(null);
   const [users, setUsers] = useState(null);
+  const [popular] = useState(require('../src/fixtures/users.json'));
   const [selectedPhotoGroup, setSelectedPhotoGroup] = useState(null);
   const { authenticated, userId } = useContext(AuthContext);
   const onInputChange = createOnInputChange({ setOptions });
@@ -121,6 +122,22 @@ const Comp = () => {
           </Row>
         </Section>
       )}
+      <Section title="Popular">
+        <Row>
+          <Col md={{ size: 6, offset: 3 }}>
+            {popular.map((user) => {
+              return (
+                <UserItem
+                  key={user.id}
+                  {...user}
+                  withCheckButton
+                  onCheckClick={createOnCheckClick({ user, setSelectedPhotoGroup })}
+                />
+              );
+            })}
+          </Col>
+        </Row>
+      </Section>
       {selectedPhotoGroup && (
         <Overlay onBackdropClick={createOnBackdropClick({ setSelectedPhotoGroup })}>
           <div className="spots-view-wrapper">
