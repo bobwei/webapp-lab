@@ -34,7 +34,7 @@ const Comp = () => {
     const defaultOptions = require('../src/fixtures/users.json');
     if (!options && !photoGroups) {
       setOptions(defaultOptions);
-      onOptionChange(defaultOptions[0]);
+      createOnOptionChange({ setQuery, setPhotoGroups, shouldSetQuery: false })(defaultOptions[0]);
     }
     if (!global.modelLoading) global.modelLoading = mobilenet.load();
     if (!users && userId) {
@@ -172,10 +172,12 @@ function createOnInputChange({ setOptions }) {
   return throttle(fn, 2000);
 }
 
-function createOnOptionChange({ setQuery, setPhotoGroups }) {
+function createOnOptionChange({ setQuery, setPhotoGroups, shouldSetQuery = true }) {
   return (option) => {
     const { value: id } = option;
-    setQuery(option);
+    if (shouldSetQuery) {
+      setQuery(option);
+    }
     // prettier-ignore
     getPhotos({ id })
       .then((photos) => {
