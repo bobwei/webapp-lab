@@ -15,6 +15,8 @@ import SwiperView from '../src/components/SwiperView';
 import UserItem from '../src/components/UserItem';
 import Section from '../src/components/Section';
 import Photo from '../src/components/Photo';
+import SpotsView from '../src/components/SpotsView';
+import Overlay from '../src/components/Overlay';
 import './index.css';
 import getFollowings from '../src/instagram/apis/getFollowings';
 import AuthContext from '../src/instagram/auth/context';
@@ -24,6 +26,7 @@ const Comp = () => {
   const [options, setOptions] = useState(null);
   const [query, setQuery] = useState(null);
   const [users, setUsers] = useState(null);
+  const [selectedPhotoGroup, setSelectedPhotoGroup] = useState(null);
   const { authenticated, userId } = useContext(AuthContext);
   const onInputChange = createOnInputChange({ setOptions });
   const onOptionChange = createOnOptionChange({ setQuery, setPhotoGroups });
@@ -105,15 +108,59 @@ const Comp = () => {
           <Row>
             <Col md={{ size: 6, offset: 3 }}>
               {users.map((user) => {
-                return <UserItem key={user.id} {...user} withCheckButton />;
+                return (
+                  <UserItem
+                    key={user.id}
+                    {...user}
+                    withCheckButton
+                    onCheckClick={createOnCheckClick({ user, setSelectedPhotoGroup })}
+                  />
+                );
               })}
             </Col>
           </Row>
         </Section>
       )}
+      {selectedPhotoGroup && (
+        <Overlay onBackdropClick={createOnBackdropClick({ setSelectedPhotoGroup })}>
+          <div className="spots-view-wrapper">
+            <SpotsView photos={selectedPhotoGroup.photos} />
+          </div>
+        </Overlay>
+      )}
+      <style jsx>
+        {`
+          .spots-view-wrapper {
+            height: 100vw;
+            margin-top: 100px;
+            position: relative;
+            display: flex;
+            flux-direction: column;
+            justify-content: center;
+          }
+        `}
+      </style>
     </>
   );
 };
+
+function createOnBackdropClick({ setSelectedPhotoGroup }) {
+  return () => {
+    setSelectedPhotoGroup(null);
+  };
+}
+
+function createOnCheckClick({ user, setSelectedPhotoGroup }) {
+  return () => {
+    setSelectedPhotoGroup({ user });
+    const { id } = user;
+    // prettier-ignore
+    getPhotos({ id })
+      .then((photos) => {
+        setSelectedPhotoGroup({ user, photos });
+      });
+  };
+}
 
 function createOnInputChange({ setOptions }) {
   let loading = Promise.resolve();
