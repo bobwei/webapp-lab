@@ -94,7 +94,7 @@ const Comp = () => {
         </Row>
       </Section>
       {!authenticated && (
-        <Section>
+        <Section title="For You">
           <Row>
             <Col md={{ size: 6, offset: 3 }}>
               <Button color="primary" block href="/login">
