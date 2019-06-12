@@ -1,23 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Swiper from 'swiper';
 import 'swiper/dist/css/swiper.min.css';
 
 const Comp = ({ children, config }) => {
   const swiperRef = React.createRef();
-  let swiper;
+  const [swiper, setSwiper] = useState(null);
   useEffect(() => {
     if (!swiper && swiperRef.current) {
-      swiper = new Swiper(swiperRef.current, {
-        ...Comp.defaultProps.config,
-        ...config,
-      });
+      setSwiper(
+        new Swiper(swiperRef.current, {
+          ...Comp.defaultProps.config,
+          ...config,
+        }),
+      );
     }
   });
   return (
     <>
       <div className="swiper-container" ref={swiperRef}>
-        <div className="swiper-wrapper">{children()}</div>
+        <div className="swiper-wrapper">{children({ swiper })}</div>
       </div>
     </>
   );
