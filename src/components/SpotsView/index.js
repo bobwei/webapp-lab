@@ -6,10 +6,7 @@ const Comp = ({ photos }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   return (
     <>
-      <div
-        className="background-photo"
-        style={{ backgroundImage: photos && `url(${photos[activeIndex].src})` }}
-      />
+      {photos && <img className="background-photo" src={`${photos[activeIndex].src}`} />}
       {photos && (
         <div className="spots-wrapper">
           <SwiperView>
@@ -39,7 +36,7 @@ const Comp = ({ photos }) => {
             width: 100%;
             height: 100%;
             margin-bottom: -6px;
-            padding-bottom: 100%;
+            // padding-bottom: 100%;
             background-repeat: no-repeat;
             background-size: cover;
             background-position: 50%;
@@ -54,12 +51,11 @@ const Comp = ({ photos }) => {
 
           .spot {
             width: 260px;
-            height: 100px;
+            height: 80px;
             margin: 20px;
             border-radius: 3px;
             background-color: white;
             padding: 12px 15px;
-            font-size: 16px;
           }
         `}
       </style>
