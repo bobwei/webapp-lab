@@ -7,7 +7,6 @@ import { Form, FormGroup, Label } from 'reactstrap';
 import { Button } from 'reactstrap';
 import Select from 'react-select';
 import throttle from 'lodash/throttle';
-import * as mobilenet from '@tensorflow-models/mobilenet';
 
 import getPhotos from '../src/instagram/apis/getPhotos';
 import getUsers from '../src/instagram/apis/getUsers';
@@ -37,7 +36,6 @@ const Comp = () => {
       setOptions(defaultOptions);
       createOnOptionChange({ setQuery, setPhotoGroups, shouldSetQuery: false })(defaultOptions[0]);
     }
-    if (!global.modelLoading) global.modelLoading = mobilenet.load();
     if (!users && userId) {
       getFollowings({ id: userId }).then(setUsers);
     }

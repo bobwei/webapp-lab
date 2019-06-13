@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 
-import PredictButton from '../PredictButton';
-
 const Comp = ({ photo }) => {
-  const [tags, setTags] = useState([]);
-  const [isPredicting, setIsPredicting] = useState(false);
+  const [tags] = useState([]);
   const { src, location } = photo;
   return (
     <>
@@ -20,10 +17,6 @@ const Comp = ({ photo }) => {
               <i className="fas fa-map-marker-alt" />
               {location.name}
             </div>
-            <PredictButton
-              isLoading={isPredicting}
-              onClick={createOnPredictClick({ photo, setIsPredicting, setTags })}
-            />
           </div>
         )}
       </div>
@@ -92,27 +85,6 @@ const Comp = ({ photo }) => {
     </>
   );
 };
-
-function createOnPredictClick({ photo, setIsPredicting, setTags }) {
-  return async (e) => {
-    e.stopPropagation();
-
-    setIsPredicting(true);
-    const img = new Image();
-    const { origin, hostname } = new URL(photo.src);
-    const src = photo.src.replace(origin, `/proxy/${hostname}`);
-    img.src = src;
-    img.onload = async () => {
-      const model = await global.modelLoading;
-      const predictions = await model.classify(img);
-      setTags(predictions.map(({ className }) => `#${className}`));
-      setIsPredicting(false);
-    };
-    img.onerror = () => {
-      setIsPredicting(false);
-    };
-  };
-}
 
 function createOnClick({ photo }) {
   const { location, url } = photo;
